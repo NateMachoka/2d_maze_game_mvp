@@ -9,8 +9,8 @@
  * @y: Y coordinate
  */
 typedef struct {
-    int x; // X coordinate
-    int y; // Y coordinate
+	int x; // X coordinate
+	int y; // Y coordinate
 } Position;
 
 /**

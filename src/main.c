@@ -17,48 +17,48 @@
  */
 int main(int argc, char *argv[])
 {
-    (void)argc;
-    (void)argv;
+	(void)argc;
+	(void)argv;
 
-    SDL_Window *window = NULL;
-    SDL_Renderer *renderer = NULL;
-    const int tile_size = TILE_SIZE;
-    int maze[MAZE_HEIGHT][MAZE_WIDTH];
+	SDL_Window *window = NULL;
+	SDL_Renderer *renderer = NULL;
+	const int tile_size = TILE_SIZE;
+	int maze[MAZE_HEIGHT][MAZE_WIDTH];
 
-    // Generate and initialize the maze with start and end points
-    generate_maze(maze);
-    place_start_end(maze);
+	/* Generate and initialize the maze with start and end points */
+	generate_maze(maze);
+	place_start_end(maze);
 
-    // Initialize SDL components
-    if (init_sdl(&window, &renderer) != 0)
-    {
-        return (1);
-    }
+	/* Initialize SDL components */
+	if (init_sdl(&window, &renderer) != 0)
+	{
+		return (1);
+	}
 
-    // Initialize SDL_mixer for audio
-    if (init_audio() != 0)
-    {
-        cleanup(renderer, window);
-        return 1;
-    }
+	/* Initialize SDL_mixer for audio */
+	if (init_audio() != 0)
+	{
+		cleanup(renderer, window);
+		return (1);
+	}
 
-    // Play the start sound
-    play_sound("/home/essy/Downloads/mixkit-aggressive-beast-roar-13.wav");
+	/* Play the start sound */
+	play_sound("/home/essy/Downloads/mixkit-aggressive-beast-roar-13.wav");
 
-    // Initialize player
-    Player player;
-    SDL_Color player_color = {255, 0, 0, 255}; // Red
-    init_player(&player, tile_size, tile_size, tile_size, tile_size, player_color);
+	/* Initialize player */
+	Player player;
+	SDL_Color player_color = {255, 0, 0, 255}; /* Red */
 
-    // Start the event loop
-    event_loop(renderer, &player, maze, tile_size);
+	init_player(&player, tile_size, tile_size, tile_size, tile_size, player_color);
 
-    // Play the congrats sound after completing the event loop
-    play_sound("/home/essy/Downloads/applause3.wav");
+	/* Start the event loop */
+	event_loop(renderer, &player, maze, tile_size);
 
-    // Clean up resources before exiting
-    cleanup(renderer, window);
-    Mix_CloseAudio(); // Close SDL_mixer
+	/* Play the congrats sound after completing the event loop */
+	play_sound("/home/essy/Downloads/applause3.wav");
 
-    return (0);
+	cleanup(renderer, window);
+	Mix_CloseAudio(); /* Close SDL_mixer */
+
+	return (0);
 }
